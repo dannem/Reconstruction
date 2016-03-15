@@ -38,7 +38,7 @@ imNum=size(conf,1);
 % and leave-one-out matrix fr permuations loadings59 (ids X ids X MDS dims) 
 % Important: loadings59 contains a procurstian alignment weights for each identity N
 % at n X MDS_dims X n
-[loadAll,loadLeaveOut,eigs,perc_expl,cum_exp]=patMDS(conf,maxDim,0.0001,[1:imNum]);
+[loadAll,loadLeaveOut,eigs,perc_expl,cum_exp]=patMDS(conf,maxDim,0.0001,ims);
 
 %% visualization of prototypes
 protoPresent(loadAll,ims,[1 2 3],1);

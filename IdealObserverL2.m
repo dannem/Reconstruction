@@ -1,4 +1,3 @@
-
 maxVal=length(ims)/2;
 vecInd=nchoosek(1:maxVal,2);
 outputVal=zeros(maxVal);
