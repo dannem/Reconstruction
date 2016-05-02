@@ -10,13 +10,17 @@
 % 2.    an array with number of counts for check.
 
 function [outMatVal,outMatCount]=buildConfEEG(matIn,combos)
-outMatVal=NaN(max(combos(:)),max(combos(:)),size(matIn,3));
-outMatCount=zeros(max(combos(:)),max(combos(:)),size(matIn,3));
-for i=1:size(matIn,3)
-    for j=1:size(matIn,2)
-        outMatVal(combos(j,1),combos(j,2),i)=mean(matIn(:,j,i),1);
+if length(combos)<2
+    combos = nchoosek([1:combos],2);
+else
+end
+outMatVal=NaN(max(combos(:)),max(combos(:)),size(matIn,1));
+outMatCount=zeros(max(combos(:)),max(combos(:)),size(matIn,1));
+for i=1:size(matIn,1)
+    for j=1:size(matIn,3)
+        outMatVal(combos(j,1),combos(j,2),i)=mean(matIn(i,:,j),2);
         outMatCount(combos(j,1),combos(j,2),i)=outMatCount(combos(j,1),combos(j,2),i)+1;
-        outMatVal(combos(j,2),combos(j,1),i)=mean(matIn(:,j,i),1);
+        outMatVal(combos(j,2),combos(j,1),i)=mean(matIn(i,:,j),2);
         outMatCount(combos(j,2),combos(j,1),i)=outMatCount(combos(j,2),combos(j,1),i)+1;
     end
     temp=squeeze(outMatVal(:,:,i));

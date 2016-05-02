@@ -18,7 +18,7 @@ q=0.1; % criterion (Q) for the FDR correction
 p = mfilename('fullpath');
 p=p(1:end-47);
 % workDir=[p 'Dropbox/CompNeuroLab/EEG Reconstruction/Behavioral Analysis'];
-saveFileDir=[p 'Documents/Reconstruction/Behavioral_Reconstruction/IO-5/'];
+saveFileDir=[p '/Users/dannem/Documents/Reconstruction/Analysis/EEG reconstruction/s20/'];
 mkdir(saveFileDir);
 % dataDir=[p 'Dropbox/CompNeuroLab/EEG Reconstruction/Recon_Percept_Exp/Output'];
 % load([p 'Dropbox/CompNeuroLab/EEG Reconstruction/Recon_Percept_Exp/Stimuli/ims.mat']);
@@ -27,6 +27,7 @@ mkdir(saveFileDir);
 %% arranging confusibility matrix from the output
 % outmat=loadConfData(subNum,dataDir,9,10,14); %imports matrix with type of trial, type of stimuli and response columns
 % [conf,~]=importDataDN(outmat,1); %creates confusibility matrix. 1-folds the matrix
+conf=conf_08;
 imNum=size(conf,1);
 
 %% Converting files to LAB space
@@ -41,7 +42,7 @@ imNum=size(conf,1);
 [loadAll,loadLeaveOut,eigs,perc_expl,cum_exp]=patMDS(conf,maxDim,0.0001,ims);
 
 %% visualization of prototypes
-protoPresent(loadAll,ims,[1 2 3],1);
+protoPresent(loadAll,ims(60:118),[1 2 3],1);
 
 %% Computing prototypes for visualization purposes
 % Computing classification image based on LAB-converted stimuli and z-scored loadings
@@ -58,7 +59,7 @@ protoPresent(loadAll,ims,[1 2 3],1);
 
 run=1;
 if run
-    [p_happAll,p_neutAll,CI_happy,CI_neut,bck]=ImClass(labout,loadAll,permutN,bck,0);
+    [p_happAll,p_neutAll,CI_happy,CI_neut]=ImClass(labout,loadAll,permutN,bck,0);
     outFile=[saveFileDir '/pval_60_' num2str(subNum) '_' date];
     save(outFile,'p_happAll','p_neutAll','CI_happy','CI_neut','bck','permutN');
 else
