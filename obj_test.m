@@ -23,8 +23,27 @@ end
 
 if kind==1
     chans=1:3;
-else
+    disp('All channels are analyzed')
+elseif kind==2
     chans=1;
+    disp('Only luminance channel is analyzed')
+elseif kind==3
+    chans=2;
+    disp('Only red-greeen channel is analyzed')
+elseif kind==4
+    chans=3;
+    disp('Only blue-yellow channel is analyzed')
+elseif kind==5
+    chans=1:2;
+    disp('Luminance and red-green channels are analyzed')
+elseif kind==6
+    chans=[1 3];
+    disp('Luminance and blue-yellow channels are analyzed')
+elseif kind==7
+    chans=2:3;
+    disp('Blue-yellow and red-green channels are analyzed')
+else
+    error('Channels are not specified')
 end
 for i=1:size(recon_mat,4)
     Eucl_dist_true=(recon_mat(:,:,chans,i)-ims{i}(:,:,chans)).^2;

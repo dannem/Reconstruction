@@ -1,6 +1,6 @@
-ims_pca=ims2mat('/Users/dannem/Dropbox/CompNeuroLab/EEG Reconstruction/Stimuli/FamousFaces#5_PCA','tif');
-ims_orig=ims2mat('/Users/dannem/Dropbox/CompNeuroLab/EEG Reconstruction/Stimuli/FamousFaces#5','tif');
-ims=ims_pca;
+% ims_pca=ims2mat('/Users/dannem/Dropbox/CompNeuroLab/EEG Reconstruction/Stimuli/FamousFaces#5_PCA','tif');
+ims_orig=ims2mat('/Users/dannem/Dropbox/CompNeuroLab/EEG Reconstruction/Stimuli/old_stimuli','tif');
+ims=ims_orig;
 maxVal=length(ims)/2;
 vecInd=nchoosek(1:maxVal,2);
 outputVal=zeros(maxVal);
