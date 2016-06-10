@@ -2,14 +2,15 @@
 %This pipeline is for reconstructing faces based on 2AFC behavioral task
 
 %% Cleaning working space
-clear all
-clc
+% clear all
+% clc
 % sca
-
+bck=ell(:);
+bck=find(bck==0);
 %% Inputs
 subNum=80; % participant number
 maxDim=20; % number of MDS to retain
-permutN=10000; % number of permuations to perfrom
+permutN=1000; % number of permuations to perfrom
 minNumPix=10; % minimum number of pixels to include as a signficiant dimension
 q=0.1; % criterion (Q) for the FDR correction
 %% Defining working directory and loading files
@@ -18,7 +19,7 @@ q=0.1; % criterion (Q) for the FDR correction
 p = mfilename('fullpath');
 p=p(1:end-47);
 % workDir=[p 'Dropbox/CompNeuroLab/EEG Reconstruction/Behavioral Analysis'];
-saveFileDir=[p '/Users/dannem/Documents/Reconstruction/Analysis/EEG reconstruction/s20/'];
+saveFileDir=[p '/Users/dannem/Desktop/Lab_based_IO_Reconstruction/'];
 mkdir(saveFileDir);
 % dataDir=[p 'Dropbox/CompNeuroLab/EEG Reconstruction/Recon_Percept_Exp/Output'];
 % load([p 'Dropbox/CompNeuroLab/EEG Reconstruction/Recon_Percept_Exp/Stimuli/ims.mat']);
@@ -27,7 +28,8 @@ mkdir(saveFileDir);
 %% arranging confusibility matrix from the output
 % outmat=loadConfData(subNum,dataDir,9,10,14); %imports matrix with type of trial, type of stimuli and response columns
 % [conf,~]=importDataDN(outmat,1); %creates confusibility matrix. 1-folds the matrix
-conf=conf_08;
+conf=conf_mixed_L;
+ims=ims_mixed_L;
 imNum=size(conf,1);
 
 %% Converting files to LAB space
@@ -39,10 +41,10 @@ imNum=size(conf,1);
 % and leave-one-out matrix fr permuations loadings59 (ids X ids X MDS dims) 
 % Important: loadings59 contains a procurstian alignment weights for each identity N
 % at n X MDS_dims X n
-[loadAll,loadLeaveOut,eigs,perc_expl,cum_exp]=patMDS(conf,maxDim,0.0001,ims);
+[loadAll,loadLeaveOut,eigs,perc_expl,cum_exp]=patMDS(conf,maxDim,0.0001);
 
 %% visualization of prototypes
-protoPresent(loadAll,ims(60:118),[1 2 3],1);
+% protoPresent(loadAll,ims(60:120),[1 2 3],1);
 
 %% Computing prototypes for visualization purposes
 % Computing classification image based on LAB-converted stimuli and z-scored loadings
@@ -67,7 +69,7 @@ else
 end
 
 %% visualization of significant pixels for single permutation test
-vis=1;
+vis=0;
 if vis
     [pIdsN,~]=disp_CIs(CI_neut,p_neutAll,q,minNumPix,bck,ims,'Neutral');
     [pIdsH,~]=disp_CIs(CI_happy,p_happAll,q,minNumPix,bck,ims,'Happy');
@@ -75,7 +77,7 @@ end
 %% FDR corrected iterations with leave-one-out
 run=1;
 if run
-    [p_happLO,p_neutLO,~,~,bck]=ImClass(labout,loadLeaveOut,permutN,bck,1);
+    [p_happLO,p_neutLO,~,~]=ImClass(labout,loadLeaveOut,permutN,bck,1);
     outFile=[saveFileDir num2str(subNum) '_' date];
     save(outFile,'p_happLO','p_neutLO','bck','permutN');
 else
@@ -85,7 +87,7 @@ end
 [outMatFDR_neut,outMatGen_neut] = FDR_CI_sel(p_neutLO,q,minNumPix);
 
 %% vizualization of significant dimensions
-vis=1;
+vis=0;
 if vis
     fig=figure;
     set(fig, 'Position', [100, 100, 800, 695]);
@@ -124,7 +126,7 @@ for i=1:size(recon_mat_sq,4)
 end
 
 %% visualization of the image
-vis=1;
+vis=0;
 imageN=29;
 if vis
     fig=figure;

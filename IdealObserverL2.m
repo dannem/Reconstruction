@@ -1,5 +1,5 @@
 % ims_pca=ims2mat('/Users/dannem/Dropbox/CompNeuroLab/EEG Reconstruction/Stimuli/FamousFaces#5_PCA','tif');
-ims=ims2mat('/Users/dannem/Desktop/UnitedSet2','tif');
+ims=ims2mat('/Users/dannem/Documents/Reconstruction/Creating Sets/Creating comined sets/UnitedSet','tif');
 % ims=ims_orig;
 maxVal=length(ims)/2;
 vecInd=nchoosek(1:maxVal,2);
