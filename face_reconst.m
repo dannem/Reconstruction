@@ -95,7 +95,7 @@ for ind_k=1:id_max
              CI_neut=prot_pos_neut-prot_neg_neut;
              
              
-             cf=Y_curr(ind_k, dim_k);
+             cf=Y_curr(ind_k, CIsel_neut_curr(dim_k));
              
              CI_mat_neut(:, dim_k)=cf*CI_neut/2;
              
@@ -135,7 +135,7 @@ for ind_k=1:id_max
              CI_hap=prot_pos_hap-prot_neg_hap;
              
              
-             cf=Y_curr(ind_k, dim_k);
+             cf=Y_curr(ind_k, CIsel_hap_curr(dim_k));
              
              CI_mat_hap(:, dim_k)=cf*CI_hap/2;
              

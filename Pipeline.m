@@ -19,7 +19,7 @@ q=0.1; % criterion (Q) for the FDR correction
 p = mfilename('fullpath');
 p=p(1:end-47);
 % workDir=[p 'Dropbox/CompNeuroLab/EEG Reconstruction/Behavioral Analysis'];
-saveFileDir=[p '/Users/dannem/Desktop/Lab_based_IO_Reconstruction/'];
+saveFileDir=[p '/Users/dannem/Desktop/mixed_IO_Reconstruction/'];
 mkdir(saveFileDir);
 % dataDir=[p 'Dropbox/CompNeuroLab/EEG Reconstruction/Recon_Percept_Exp/Output'];
 % load([p 'Dropbox/CompNeuroLab/EEG Reconstruction/Recon_Percept_Exp/Stimuli/ims.mat']);
@@ -28,8 +28,8 @@ mkdir(saveFileDir);
 %% arranging confusibility matrix from the output
 % outmat=loadConfData(subNum,dataDir,9,10,14); %imports matrix with type of trial, type of stimuli and response columns
 % [conf,~]=importDataDN(outmat,1); %creates confusibility matrix. 1-folds the matrix
-conf=conf_mixed_L;
-ims=ims_mixed_L;
+conf=conf_unf;
+ims=ims_unf;
 imNum=size(conf,1);
 
 %% Converting files to LAB space
