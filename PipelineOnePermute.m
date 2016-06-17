@@ -44,7 +44,6 @@ for i=1:60;
 %     suptitle([num2str(i) '  happy: ' num2str(aver_im_happ(i)) '  neutral: ' num2str(aver_im_neut(i))])
 end
 names=cell(120,1);
-for i=55:60
-    names{i}=['H_fam_' num2str(i+200)];
-    names{i+60}=['N_fam_' num2str(i+200)];
+for i=1:120
+    imwrite(ims{i},[names{i} '.tif']);
 end
