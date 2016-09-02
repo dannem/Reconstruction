@@ -28,7 +28,8 @@ mkdir(saveFileDir);
 %% arranging confusibility matrix from the output
 % outmat=loadConfData(subNum,dataDir,9,10,14); %imports matrix with type of trial, type of stimuli and response columns
 % [conf,~]=importDataDN(outmat,1); %creates confusibility matrix. 1-folds the matrix
-conf=conf_unf;
+conf = squareform(disc_happ)+diag(ones(1,54));
+% conf=conf_unf;
 ims=ims_unf;
 imNum=size(conf,1);
 
@@ -41,7 +42,7 @@ imNum=size(conf,1);
 % and leave-one-out matrix fr permuations loadings59 (ids X ids X MDS dims) 
 % Important: loadings59 contains a procurstian alignment weights for each identity N
 % at n X MDS_dims X n
-[loadAll,loadLeaveOut,eigs,perc_expl,cum_exp]=patMDS(conf,maxDim,0.0001);
+[loadAll,loadLeaveOut,eigs,perc_expl,cum_exp]=patMDS(conf,maxDim,0.0001,ims);
 
 %% visualization of prototypes
 % protoPresent(loadAll,ims(60:120),[1 2 3],1);
@@ -122,7 +123,7 @@ recon_mat_sq=reshape(recon_mat,size(ims{1},1),size(ims{1},2),size(ims{1},3),size
 
 %% converting reconstructed faces into RGB
 for i=1:size(recon_mat_sq,4)
-    recon_mat_sq_rgb(:,:,:,i) = uint8(lab2rgb(recon_mat_sq(:,:,:,i)));
+    recon_mat_sq_rgb(:,:,:,i) = lab2rgb(recon_mat_sq(:,:,:,i));
 end
 
 %% visualization of the image
