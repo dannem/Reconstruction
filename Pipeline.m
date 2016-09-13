@@ -28,7 +28,8 @@ mkdir(saveFileDir);
 %% arranging confusibility matrix from the output
 % outmat=loadConfData(subNum,dataDir,9,10,14); %imports matrix with type of trial, type of stimuli and response columns
 % [conf,~]=importDataDN(outmat,1); %creates confusibility matrix. 1-folds the matrix
-conf = squareform(disc_happ)+diag(ones(1,54));
+% conf = squareform(disc_happ)+diag(ones(1,54));\
+conf = squareform(disc_neut)+diag(ones(1,60));
 % conf=conf_unf;
 ims=ims_unf;
 imNum=size(conf,1);
@@ -42,8 +43,8 @@ imNum=size(conf,1);
 % and leave-one-out matrix fr permuations loadings59 (ids X ids X MDS dims) 
 % Important: loadings59 contains a procurstian alignment weights for each identity N
 % at n X MDS_dims X n
-[loadAll,loadLeaveOut,eigs,perc_expl,cum_exp]=patMDS(conf,maxDim,0.0001,ims);
-
+% [loadAll,loadLeaveOut,eigs,perc_expl,cum_exp]=patMDS(conf,maxDim,0.0001,ims);
+[loadAll,loadLeaveOut,eigs,perc_expl,perc_expl_cum]=compMDS(conf,1:54,20);
 %% visualization of prototypes
 % protoPresent(loadAll,ims(60:120),[1 2 3],1);
 
@@ -70,7 +71,7 @@ else
 end
 
 %% visualization of significant pixels for single permutation test
-vis=0;
+vis=1;
 if vis
     [pIdsN,~]=disp_CIs(CI_neut,p_neutAll,q,minNumPix,bck,ims,'Neutral');
     [pIdsH,~]=disp_CIs(CI_happy,p_happAll,q,minNumPix,bck,ims,'Happy');
@@ -119,7 +120,7 @@ end
 [recon_mat]=face_reconst(outMatGen_neut,outMatGen_happ,loadLeaveOut,labout);
 
 %% arranging back into row x column X color X dim array
-recon_mat_sq=reshape(recon_mat,size(ims{1},1),size(ims{1},2),size(ims{1},3),size(ims,1));
+recon_mat_sq=reshape(recon_mat,size(ims{1},1),size(ims{1},2),size(ims{1},3),size(recon_mat,2));
 
 %% converting reconstructed faces into RGB
 for i=1:size(recon_mat_sq,4)
@@ -127,8 +128,8 @@ for i=1:size(recon_mat_sq,4)
 end
 
 %% visualization of the image
-vis=0;
-imageN=29;
+vis=1;
+imageN=120;
 if vis
     fig=figure;
     set(fig, 'Position', [100, 100, 800, 500]);
@@ -146,10 +147,11 @@ end
 % score of 1 is awarded, if further a score of 0 is awarded. Then all the
 % scores are averaged per image, and the grand average of all reconstructed
 % faces is compared against 0.5 using t-test.
-[~,p_val_happL,aver_im_happL,aver_all_happL]=obj_test(recon_mat_sq(:,:,:,1:imNum),labout(1:imNum),0.05,2);
-[~,p_val_happ,aver_im_happ,aver_all_happ]=obj_test(recon_mat_sq(:,:,:,1:imNum),labout(1:imNum),0.05,1);
-[~,p_val_neutL,aver_im_neutL,aver_all_neutL]=obj_test(recon_mat_sq(:,:,:,imNum+1:imNum*2),labout(imNum+1:imNum*2),0.05,2);
-[~,p_val_neut,aver_im_neut,aver_all_neut]=obj_test(recon_mat_sq(:,:,:,imNum+1:imNum*2),labout(imNum+1:imNum*2),0.05,1);
+imNum=6;
+[~,p_val_happL,aver_im_happL,aver_all_happL]=obj_test(recon_mat_sq(:,:,:,1:6),labout(55:60),0.05,2);
+[~,p_val_happ,aver_im_happ,aver_all_happ]=obj_test(recon_mat_sq(:,:,:,1:6),labout(55:60),0.05,1);
+[~,p_val_neutL,aver_im_neutL,aver_all_neutL]=obj_test(recon_mat_sq(:,:,:,1:6),labout(115:120),0.05,2);
+[~,p_val_neut,aver_im_neut,aver_all_neut]=obj_test(recon_mat_sq(:,:,:,1:6),labout(115:120),0.05,1);
 
 %% plotting hitmaps of the test
 % shows percetage of accurate descrimination (same pairs vs different

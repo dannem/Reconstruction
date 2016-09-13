@@ -110,7 +110,16 @@ else % for leave one out analysis
         
         for ind_k=1:size(loadings,3)
             rng('shuffle')
-            Y_L1out=Y_mat(:,:,ind_k);            
+            Y_L1out=Y_mat(:,:,ind_k);
+            if size(loadings,1)==size(loadings,3)
+                imgs=im_mat;
+            else
+                indTrainHapp=1:size(loadings,1)-1;
+                indTrainNeut=[1:size(loadings,1)-1]+size(im_mat,2)/2;
+                indTestHapp=size(loadings,1)-1+ind_k;
+                indTestNeut=size(loadings,1)-1+ind_k+size(im_mat,2)/2;
+                imgs=im_mat(:,[indTrainHapp indTestHapp indTrainNeut indTestNeut]);
+            end
             for dim_k=1:size(loadings,2);
                 CI_mat_neut=NaN(sz, perm_n);
                 CI_mat_happ=CI_mat_neut;
@@ -125,10 +134,10 @@ else % for leave one out analysis
                     ind_pos=find(Y_rnd(:,1)>0);
                     ind_neg=find(Y_rnd(:,1)<0);
                     
-                    im_mat_pos_neut=im_mat(:, ind_pos+size(loadings,1));
-                    im_mat_neg_neut=im_mat(:, ind_neg+size(loadings,1));
-                    im_mat_pos_hap=im_mat(:, ind_pos);
-                    im_mat_neg_hap=im_mat(:, ind_neg);
+                    im_mat_pos_neut=imgs(:, ind_pos+size(loadings,1));
+                    im_mat_neg_neut=imgs(:, ind_neg+size(loadings,1));
+                    im_mat_pos_hap=imgs(:, ind_pos);
+                    im_mat_neg_hap=imgs(:, ind_neg);
                     
                     Y_pos=Y_rnd(ind_pos,1);
                     Y_neg=-Y_rnd(ind_neg,1);
