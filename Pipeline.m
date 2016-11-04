@@ -29,9 +29,10 @@ mkdir(saveFileDir);
 % outmat=loadConfData(subNum,dataDir,9,10,14); %imports matrix with type of trial, type of stimuli and response columns
 % [conf,~]=importDataDN(outmat,1); %creates confusibility matrix. 1-folds the matrix
 % conf = squareform(disc_happ)+diag(ones(1,54));\
+disc_neut=squeeze(disc{1, 385}.ap(1,1,:));
 conf = squareform(disc_neut)+diag(ones(1,60));
 % conf=conf_unf;
-ims=ims_unf;
+% ims=ims_unf;
 imNum=size(conf,1);
 
 %% Converting files to LAB space

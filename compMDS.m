@@ -108,7 +108,7 @@ if plot_on
     col_vect=[0.8 0 0];
     
     %%%choose to plot raw or zscored solution
-    plot(allMDS(:,1),compY(:,2),'.', 'MarkerEdgeColor',col_vect,'MarkerFaceColor',col_vect, 'MarkerSize',21);
+    plot(allMDS(:,1),allMDS(:,2),'.', 'MarkerEdgeColor',col_vect,'MarkerFaceColor',col_vect, 'MarkerSize',21);
     %plot(zscore(Y(:,1)), zscore(Y(:,2)),'d', 'MarkerEdgeColor',[.6 .1 .1],'MarkerFaceColor',[.6 .1 .1], 'MarkerSize',5)
     
     box off
