@@ -26,7 +26,7 @@ if kind==1
 %     disp('All channels are analyzed')
 elseif kind==2
     chans=1;
-%     disp('Only luminance channel is analyzed')
+    disp('Only luminance channel is analyzed')
 elseif kind==3
     chans=2;
     disp('Only red-greeen channel is analyzed')
@@ -45,8 +45,10 @@ elseif kind==7
 else
     error('Channels are not specified')
 end
+false_ind=randperm(size(recon_mat,4));
 for i=1:size(recon_mat,4)
-    Eucl_dist_true=(recon_mat(:,:,chans,i)-ims{i}(:,:,chans)).^2;
+    m=false_ind(i);
+    Eucl_dist_true=(recon_mat(:,:,chans,m)-ims{i}(:,:,chans)).^2;
     Eucl_dist_true=sqrt(sum(Eucl_dist_true(:)));
     other_im=1:size(recon_mat,4);
     other_im(other_im==i)=[];

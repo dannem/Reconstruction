@@ -1,23 +1,26 @@
 %%Visualization of reconstruction data
 % change here your data structure
-data=recon_output_cum_all_13_happy_within_4els_all_id;
-acc=[recon_output_cum_all_13_happy_within_4els_all_id.hap_to_hap;recon_output_cum_all_13_happy_within_4els_all_id.hap_to_neut];
+% data=recon_output_all_13_within_60id_12els_307_bins_happ;
+% acc=[recon_output_all_13_within_60id_12els_307_bins_happ.hap_to_hap;recon_output_all_13_within_60id_12els_307_bins_happ.hap_to_neut];
+%%
+data=recon_output_all_13_within_60id_12els_307_bins_neut;
+acc=[recon_output_all_13_within_60id_12els_307_bins_neut.neut_to_hap;recon_output_all_13_within_60id_12els_307_bins_neut.neut_to_neut];
 %% visualization of significant pixels for single permutation test
 [pIdsN,~]=disp_CIs(data.CI_neut,data.p_neutAll,data.q,data.minNumPix,data.bck,data.ims,'Neutral');
 [pIdsH,~]=disp_CIs(data.CI_happy,data.p_happAll,data.q,data.minNumPix,data.bck,data.ims,'Happy');
 %% visualizatio of significant dimensions based on permutations
-fig=figure;
-set(fig, 'Position', [100, 100, 800, 695]);
-for i=1:3
-    subplot(2,3,i)
-    imagesc(squeeze(data.outMatGen_neut(:,:,i)));
-    title(['Neutral channel ' num2str(i)]);
-    subplot(2,3,i+3)
-    imagesc(squeeze(data.outMatGen_happ(:,:,i)));
-    title(['Happy channel ' num2str(i)]);
-end
+% fig=figure;
+% set(fig, 'Position', [100, 100, 800, 695]);
+% for i=1:3
+%     subplot(2,3,i)
+%     imagesc(squeeze(data.outMatGen_neut(:,:,i)));
+%     title(['Neutral channel ' num2str(i)]);
+%     subplot(2,3,i+3)
+%     imagesc(squeeze(data.outMatGen_happ(:,:,i)));
+%     title(['Happy channel ' num2str(i)]);
+% end
 %% showing faces
-imageN=[1:120];
+imageN=[5:5];
 numIm=length(imageN)
 fig=figure;
 for i=1:numIm

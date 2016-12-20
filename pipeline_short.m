@@ -1,9 +1,15 @@
-function data=pipeline_short(bck,conf,ims,saveFileDir,subNum,maxDim,permutN,minNumPix,q)
+function data=pipeline_short(bck,conf,ims,saveFileDir,subNum,maxDim,permutN,minNumPix,q,conf2)
 
 %% PIPELINE
 %This pipeline is for reconstructing faces 
 try
     %% Inputs
+    if nargin<10
+        no2conf=0;
+    else
+        no2conf=1;
+        data.conf2=conf2;
+    end
     tic
     data.subNum=subNum; % participant number
     data.maxDim=maxDim; % number of MDS to retain
@@ -31,8 +37,11 @@ try
     % and leave-one-out matrix fr permuations loadings59 (ids X ids X MDS dims)
     % Important: loadings59 contains a procurstian alignment weights for each identity N
     % at n X MDS_dims X n
-    [data.loadAll,data.loadLeaveOut,data.eigs,data.perc_expl,data.cum_exp]=patMDS(data.conf,data.maxDim,0.0001);
-    
+    if no2conf
+        [data.loadAll,data.loadLeaveOut,data.eigs,data.perc_expl,data.cum_exp]=patMDSsameEmot(data.conf,data.conf2,data.maxDim,0.0001);
+    else
+        [data.loadAll,data.loadLeaveOut,data.eigs,data.perc_expl,data.cum_exp]=patMDS(data.conf,data.maxDim,0.0001);
+    end
     %% Computing prototypes for visualization purposes
     % Computing classification image based on LAB-converted stimuli and z-scored loadings
     % Function ImClass first checks the dimensionality of the loading matrix.

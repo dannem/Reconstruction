@@ -2,8 +2,8 @@
 % clear all
 % load('/Users/dannem/Documents/Reconstruction/Recon results/Recon_final_cum_all_13_happy_within_4els_all_id_12-Oct-2016.mat')
 % load('/Users/dannem/Documents/Reconstruction/Recon results/Recon_final_cum_all_13_neut_within_4els_all_id_12-Oct-2016.mat')
-data=recon_output_cum_all_13_within_60id_4els_s23__happ;
-data1=recon_output_cum_all_13_within_60id_4els_s23__neut;
+data=recon_output_cum_all_13_happy_within_4els_all_id;
+data1=recon_output_cum_all_13_neut_within_4els_all_id;
 fam=1;
 if data.imNum==54
     ind1=55;
@@ -59,3 +59,11 @@ mean_unf=varfun(func,obj_EEG_unf)
 if fam==1
     mean_fam=varfun(func,obj_EEG_fam)
 end
+std(obj_unf_all_neut_to_happ)/sqrt(54)
+std(obj_unf_all_hap_to_neut)/sqrt(54)
+std(obj_unf_all_hap_to_happ)/sqrt(54)
+std(obj_unf_all_neut_to_neut)/sqrt(54)
+[a b]=ttest(obj_unf_all_neut_to_neut,0.5)
+[a b]=ttest(obj_unf_all_hap_to_neut,0.5)
+[a b]=ttest(obj_unf_all_neut_to_happ,0.5)
+[a b]=ttest(obj_unf_all_neut_to_neut,0.5)
