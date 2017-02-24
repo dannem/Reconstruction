@@ -2,8 +2,8 @@
 % clear all
 % load('/Users/dannem/Documents/Reconstruction/Recon results/Recon_final_cum_all_13_happy_within_4els_all_id_12-Oct-2016.mat')
 % load('/Users/dannem/Documents/Reconstruction/Recon results/Recon_final_cum_all_13_neut_within_4els_all_id_12-Oct-2016.mat')
-data=recon_output_cum_all_13_happy_within_4els_all_id;
-data1=recon_output_cum_all_13_neut_within_4els_all_id;
+data=recon_output_all_all_13_within_60id_12els_307_bins_happ;
+data1=recon_output_all_all_13_within_60id_12els_307_bins_neut;
 fam=1;
 if data.imNum==54
     ind1=55;
