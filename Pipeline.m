@@ -1,6 +1,6 @@
 %% PIPELINE
 %This pipeline is for reconstructing faces based on 2AFC behavioral task
-
+shapeImClass(shapes,loadings,perm_n,leaveOut)
 %% Cleaning working space
 % clear all
 % clc
